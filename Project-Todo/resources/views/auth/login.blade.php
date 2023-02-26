@@ -1,4 +1,4 @@
-@extends('frontend.master')
+@extends('backend.master')
 
 @section('page_title', 'Welcome - Todo')
 

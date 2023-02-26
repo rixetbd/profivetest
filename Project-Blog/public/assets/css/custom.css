@@ -1,13 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300;400;500;700;900&display=swap');
+
 
 .navbar-brand{
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     letter-spacing: 1px;
 }
+
+.custom-form label{
+    font-size: 14px;
+    font-weight: 500;
+}
+.custom-form input,
+.custom-form select,
+.custom-form textarea{
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    border-radius: 0;
+}
+.form-control:focus,
+.form-select:focus,
+.form-select:active,
+.form-control:active{
+    box-shadow: none;
+}
+
+body,
+.font_montserrat{
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1px;
+}
+.font_style_one{
+    font-family: 'Merienda', cursive;
+}
+.font_30{
+    font-weight: 700;
+    font-size: 30px;
+}
+.border_radius_10{
+    border-radius: 10px;
+}
+
 .nav-link{
     font-family: 'Montserrat', sans-serif;
 }
+
+.notyf__ripple{
+    width: 430px !important;
+}
+.notyf__message{
+    font-size: 14px !important;
+}
+.notyf__toast{
+    max-width: 400px !important;
+}
+
+.red_icon{
+    color: #dc3545;
+    border-radius: 2px;
+}
+
+table.dataTable thead th, table.dataTable tfoot th {
+    font-weight: 500 !important;
+}
+
 a {text-decoration: none;}
 body {background-color: #e6e7ee !important;}
 

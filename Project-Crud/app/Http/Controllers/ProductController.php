@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -55,13 +56,14 @@ class ProductController extends Controller
             'buying_price'=>$request->buying_price,
             'selling_price'=>$request->selling_price,
             'description'=>$request->description,
+            'created_at'=>Carbon::now(),
         ]);
 
 
         if($request->hasFile('image'))
         {
             $image = $request->file('image');
-            $filename = Str::slug($request->name).'.' . $image->getClientOriginalExtension();
+            $filename = Str::slug($request->name).rand(111,999).'.' . $image->getClientOriginalExtension();
             $path = base_path('public/uploads/product/' . $filename);
             Image::make($image)->fit(1000, 1000)->save($path);
 
@@ -117,7 +119,7 @@ class ProductController extends Controller
                     File::delete($product_img);
                 }
                 $image = $request->file('image');
-                $filename = Str::slug($request->name).'.' . $image->getClientOriginalExtension();
+                $filename = Str::slug($request->name).rand(111,999).'.' . $image->getClientOriginalExtension();
                 $path = base_path('public/uploads/product/' . $filename);
                 Image::make($image)->fit(1000, 1000)->save($path);
 
@@ -129,7 +131,7 @@ class ProductController extends Controller
 
         notyf()
         // ->duration(2000)
-        ->addSuccess('Data has been saved successfully!');
+        ->addSuccess('Data has been update successfully!');
         return redirect()->route('product.index');
     }
 

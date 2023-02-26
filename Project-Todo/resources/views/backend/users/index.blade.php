@@ -1,6 +1,6 @@
 @extends('backend.master')
 
-@section('page_title', 'Tasks List')
+@section('page_title', 'Users List')
 
 @section('custom_css')
 <link rel="stylesheet" href="//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
@@ -11,11 +11,11 @@
 <div class="container my-5">
     <div class="d-flex justify-content-between py-3">
         <div>
-            <h4 class="font_style_one font_30">Tasks</h4>
+            <h4 class="font_style_one font_30">Users</h4>
         </div>
         <div>
-            <a href="{{route('tasks.create')}}" class="btn btn-sm btn-secondary">
-                <i class="fas fa-plus me-1"></i> Add Task
+            <a href="{{route('users.create')}}" class="btn btn-sm btn-secondary">
+                <i class="fas fa-plus me-1"></i> Add User
             </a>
         </div>
     </div>
@@ -26,11 +26,8 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Image</th>
                             <th>Name</th>
-                            <th>Start From</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
+                            <th>Email</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -51,7 +48,7 @@
 <script>
     $('#dataTableget').DataTable({
         ajax: {
-            url: `{{route('tasks.autoData')}}`,
+            url: `{{route('users.autoData')}}`,
             dataSrc: ''
         },
         columns: [{
@@ -62,34 +59,16 @@
                 }
             },
             {
-                "data": function (data, type) {
-                    return `<a href="{{asset('uploads/tasks')}}/` + data.image +
-                        `" data-lightbox="roadtrip"><img class="img-thumbnail" width="45" src="{{asset('uploads/tasks')}}/` +
-                        data.image + `" itemprop="thumbnail" alt="Img"></a>`;
-                }
-            },
-            {
                 data: 'name'
             },
             {
-                data: 'start_from'
-            },
-            {
-                data: 'due_date'
-            },
-            {
-                className: "text-center",
-                data: 'status'
+                data: 'email'
             },
             {
                 "data": null, // (data, type, row)
                 className: "text-center",
                 render: function (data) {
-                    return `<button title="Asign To" class="border-0 btn-sm btn-success text-success me-2" onclick="data_view('` +
-                        data.id + `')"><i class="fas fa-play"></i></button>`+
-                        `<button class="border-0 btn-sm btn-info me-2" onclick="data_edit('` +
-                        data.id + `','` + data.name + `')"><i class="fa fa-edit"></i></button>` +
-                        `<button class="border-0 btn-sm btn-danger red_icon me-2" onclick="data_distroy('` +
+                    return `<button class="border-0 btn-sm btn-danger red_icon me-2" onclick="data_distroy('` +
                         data.id + `')"><i class="fa fa-trash"></i></button>`;
                 },
             },
@@ -111,7 +90,7 @@
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                let formUrlData = `{{route('tasks.destroy')}}`;
+                let formUrlData = `{{route('users.destroy')}}`;
                 $.ajax({
                     type: "POST",
                     url: `${formUrlData}`,
@@ -128,25 +107,6 @@
                 });
             }
         })
-    }
-
-    category.edit
-
-    function data_edit(id)
-    {
-        var url = '{{ route("tasks.edit", ":id") }}';
-        url = url.replace(':id', id);
-        // window.open(url, '_blank');
-        window.location.href = url;
-    }
-
-    function data_view(id)
-    {
-        notyf.error("Action Not Develop Yet.");
-        // var url = '{{ route("tasks.edit", ":id") }}';
-        // url = url.replace(':id', id);
-        // // window.open(url, '_blank');
-        // window.location.href = url;
     }
 </script>
 @endsection

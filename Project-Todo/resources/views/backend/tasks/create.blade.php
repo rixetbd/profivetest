@@ -9,6 +9,16 @@
 @section('content')
 
 <div class="container my-5">
+    <div class="d-flex justify-content-between py-3">
+        <div>
+            <h4 class="font_style_one font_30">Create Task</h4>
+        </div>
+        <div>
+            <a class="btn btn-sm btn-secondary my-1" href="{{route('tasks.index')}}"><i
+                class="fas fa-angle-left me-1"></i> Back</a>
+        </div>
+    </div>
+
     <div class="shadow-soft px-3 py-4 border_radius_10">
         <form class="custom-form" action="{{route('tasks.store')}}" method="post" enctype="multipart/form-data">
             @csrf
@@ -18,12 +28,8 @@
                     <input class="form-control" type="text" name="name" placeholder="Enter a product name" required>
                 </div>
                 <div class="col-sm-12 col-md-6 my-1">
-                    <label class="mb-1" for="p_code">Subject</label>
-                    <input class="form-control" type="text" name="p_code" placeholder="Enter product code" required>
-                </div>
-                <div class="col-sm-12 col-md-6 my-1">
                     <label class="mb-1" for="quantity">Status</label>
-                    <select class="form-control" name="status" required>
+                    <select class="form-select" name="status" required>
                         <option value="">-- Select A Optioin</option>
                         <option value="Todo">Todo</option>
                         <option value="On Test">On Test</option>
@@ -32,8 +38,12 @@
                     </select>
                 </div>
                 <div class="col-sm-12 col-md-6 my-1">
-                    <label class="mb-1" for="buying_price">Due Date</label>
-                    <input class="form-control" type="date" name="buying_price" placeholder="Enter Buying Price" required>
+                    <label class="mb-1" for="start_from">Start From</label>
+                    <input class="form-control" type="date" name="start_from" required>
+                </div>
+                <div class="col-sm-12 col-md-6 my-1">
+                    <label class="mb-1" for="due_date">Due Date</label>
+                    <input class="form-control" type="date" name="due_date" required>
                 </div>
                 <div class="col-sm-12 col-md-12 my-1">
                     <label class="mb-1" for="price">Description</label>
@@ -47,9 +57,7 @@
             </div>
             <div class="d-flex justify-content-between">
                 <button class="btn btn-sm btn-success my-1" type="submit"><i class="fas fa-plus me-1"></i> Add
-                    Product</button>
-                <a class="btn btn-sm btn-secondary my-1" href="{{route('tasks.index')}}"><i
-                        class="fas fa-angle-left me-1"></i> Back</a>
+                    Task</button>
             </div>
         </form>
     </div>
