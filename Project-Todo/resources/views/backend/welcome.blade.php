@@ -1,6 +1,6 @@
 @extends('frontend.master')
 
-@section('page_title', 'Welcome')
+@section('page_title', 'Welcome - Todo')
 
 @section('custom_css')
 <style>
@@ -14,7 +14,7 @@
 
     .card-body {
         text-align: center;
-        border-top: 1px solid #0000001a;
+        border-top: 1px solid #cccccc;
     }
 
     .card-body a.btn {
@@ -29,11 +29,11 @@
 <div class="container">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow-soft">
-            <img src="{{asset('assets/img/CRUD-banner.png')}}" class="card-img-top" alt="CRUD Banner">
+            <img src="{{asset('assets/img/banner.png')}}" class="card-img-top" alt="CRUD Banner">
             <div class="card-body">
-                <h5 class="card-title">CRUD</h5>
-                <p class="card-text">Welcome to CRUD System.</p>
-                <a href="{{route('product.index')}}" class="btn px-4">View</a>
+                <h5 class="card-title">Todo App</h5>
+                <p class="card-text">A simple TODO App with Laravel.</p>
+                <a href="{{route('users.index')}}" class="btn px-4">View</a>
             </div>
         </div>
     </div>

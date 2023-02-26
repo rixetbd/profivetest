@@ -35,6 +35,16 @@ class ProductController extends Controller
             'buying_price'=>'required',
             'selling_price'=>'required',
             'description'=>'required',
+            'image' => 'file|max:2048',
+        ],[
+            'name.required' => 'Please enter a name',
+            'category_id.required' => 'Please select a category',
+            'p_code.required' => 'Enter Product Code',
+            'quantity.required' => 'Enter Product Quantity',
+            'buying_price.required' => 'Enter Buying Price',
+            'selling_price.required' => 'Enter Selling Price',
+            'description.required' => 'Type Description...',
+            'image.max' => 'Upload Less then 2MB',
         ]);
 
         $newID = Product::insertGetId([
@@ -99,7 +109,7 @@ class ProductController extends Controller
         ]);
 
         $product = Product::where('id','=',$request->id)->first();
-        $product_img = base_path('public/uploadsproduct/'.$product->image);
+        $product_img = base_path('public/uploads/product/'.$product->image);
         if ($product) {
             if($request->hasFile('image'))
             {

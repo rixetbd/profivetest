@@ -1,6 +1,6 @@
-@extends('frontend.master')
+@extends('backend.master')
 
-@section('page_title', 'Product List')
+@section('page_title', 'Tasks List')
 
 @section('custom_css')
 <link rel="stylesheet" href="//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
@@ -11,11 +11,11 @@
 <div class="container my-5">
     <div class="d-flex justify-content-between py-3">
         <div>
-            <h4 class="font_style_one font_30">Products</h4>
+            <h4 class="font_style_one font_30">Tasks</h4>
         </div>
         <div>
-            <a href="{{route('product.create')}}" class="btn btn-sm btn-secondary">
-                <i class="fas fa-plus me-1"></i> Add Product
+            <a href="{{route('tasks.create')}}" class="btn btn-sm btn-secondary">
+                <i class="fas fa-plus me-1"></i> Add Task
             </a>
         </div>
     </div>
@@ -51,7 +51,7 @@
 <script>
     $('#dataTableget').DataTable({
         ajax: {
-            url: `{{route('product.autoData')}}`,
+            url: `{{route('tasks.autoData')}}`,
             dataSrc: ''
         },
         columns: [{
@@ -63,8 +63,8 @@
             },
             {
                 "data": function (data, type) {
-                    return `<a href="{{asset('uploads/product')}}/` + data.image +
-                        `" data-lightbox="roadtrip"><img class="img-thumbnail" width="45" src="{{asset('uploads/product')}}/` +
+                    return `<a href="{{asset('uploads/users')}}/` + data.image +
+                        `" data-lightbox="roadtrip"><img class="img-thumbnail" width="45" src="{{asset('uploads/users')}}/` +
                         data.image + `" itemprop="thumbnail" alt="Img"></a>`;
                 }
             },
@@ -109,7 +109,7 @@
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                let formUrlData = `{{route('product.destroy')}}`;
+                let formUrlData = `{{route('tasks.destroy')}}`;
                 $.ajax({
                     type: "POST",
                     url: `${formUrlData}`,
@@ -132,7 +132,7 @@
 
     function data_edit(id)
     {
-        var url = '{{ route("product.edit", ":id") }}';
+        var url = '{{ route("tasks.edit", ":id") }}';
         url = url.replace(':id', id);
         // window.open(url, '_blank');
         window.location.href = url;

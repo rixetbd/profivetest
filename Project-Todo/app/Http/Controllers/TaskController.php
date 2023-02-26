@@ -2,27 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Product;
-
+use App\Models\Tasks;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\File;
 
-class ProductController extends Controller
+class TaskController extends Controller
 {
     public function index()
     {
-        return view('frontend.products.product');
+        return view('backend.tasks.index');
     }
 
     public function create()
     {
-        $category = Category::all();
-        return view('frontend.products.create',[
-            'category'=>$category,
-        ]);
+        return view('backend.tasks.create');
     }
 
     public function store(Request $request)
@@ -148,7 +140,7 @@ class ProductController extends Controller
     public function autoData()
     {
         $data = [];
-        $getData = Product::all();
+        $getData = Tasks::all();
         foreach ($getData as $value) {
             $data[] = [
                 'id'=>$value->id,

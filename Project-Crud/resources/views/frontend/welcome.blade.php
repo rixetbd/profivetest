@@ -28,10 +28,10 @@
 <div class="container">
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="card shadow-soft">
-            <img src="{{asset('assets/img/CRUD-banner.png')}}" class="card-img-top" alt="CRUD Banner">
+            <img src="{{asset('assets/img/banner.png')}}" class="card-img-top" alt="CRUD Banner">
             <div class="card-body">
                 <h5 class="card-title">CRUD</h5>
-                <p class="card-text">Welcome to CRUD System.</p>
+                <p class="card-text">A simple CRUD App with Laravel.</p>
                 <a href="{{route('product.index')}}" class="btn px-4">View</a>
             </div>
         </div>

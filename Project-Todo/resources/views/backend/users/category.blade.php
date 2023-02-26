@@ -1,4 +1,4 @@
-@extends('frontend.master')
+@extends('backend.master')
 
 @section('page_title', 'Category')
 
@@ -14,8 +14,8 @@
             <h4 class="font_style_one font_30">Category</h4>
         </div>
         <div>
-            <a href="{{route('product.index')}}" class="btn btn-sm btn-secondary">
-                <i class="fas fa-angle-left me-1"></i> Back To Product List
+            <a href="{{route('users.index')}}" class="btn btn-sm btn-secondary">
+                <i class="fas fa-angle-left me-1"></i> Back To Users List
             </a>
         </div>
     </div>

@@ -1,4 +1,4 @@
-@extends('frontend.master')
+@extends('backend.master')
 
 @section('page_title', 'Edit Product')
 
@@ -53,7 +53,7 @@
         </div>
         <div class="d-flex justify-content-between">
             <button class="btn btn-sm btn-success my-1" type="submit"><i class="fas fa-plus me-1"></i> Update Product</button>
-            <a class="btn btn-sm btn-secondary my-1" href="{{route('product.index')}}"><i class="fas fa-angle-left me-1"></i> Back</a>
+            <a class="btn btn-sm btn-secondary my-1" href="{{route('users.index')}}"><i class="fas fa-angle-left me-1"></i> Back</a>
         </div>
     </form>
 </div>

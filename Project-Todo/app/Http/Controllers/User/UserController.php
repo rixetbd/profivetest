@@ -1,28 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Category;
-use App\Models\Product;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 
-class ProductController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        return view('frontend.products.product');
+        return view('frontend.users.users');
     }
 
     public function create()
     {
-        $category = Category::all();
-        return view('frontend.products.create',[
-            'category'=>$category,
-        ]);
+        return view('frontend.users.create');
     }
 
     public function store(Request $request)
