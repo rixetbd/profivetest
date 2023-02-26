@@ -35,6 +35,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-12 col-md-12 my-3">
+            <div class="card shadow-soft px-4 py-2 my-3 border_radius_10">
+                {{-- <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="..."> --}}
+                <div class="card-body">
+                    <h2 class="card-title">Comments</h2>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

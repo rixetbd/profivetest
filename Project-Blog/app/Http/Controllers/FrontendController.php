@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Comments;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -24,8 +25,10 @@ class FrontendController extends Controller
     public function blog_view ($slug)
     {
         $blog = Blog::where('slug','=', $slug)->first();
+        $comment = Comments::where('blog_id','=', $blog->id)->get();
         return view('frontend.blogview',[
             'blog'=>$blog,
+            'comment'=>$comment,
         ]);
     }
 
