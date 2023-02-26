@@ -17,10 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->integer('category_id');
-            $table->text('description');
-            $table->integer('author');
+            $table->string('category');
             $table->string('image')->nullable();
+            $table->text('description');
             $table->timestamps();
         });
     }

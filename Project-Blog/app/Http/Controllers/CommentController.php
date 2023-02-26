@@ -2,83 +2,78 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comments;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'comments'=>'required',
+        ],[
+            'name.required' => 'Enter your name',
+            'comments.required' => 'Type your comment',
+        ]);
+
+        Comments::insert([
+            'blog_id'=>$request->blog_id,
+            'name'=>$request->name,
+            'comments'=>$request->comments,
+            'parent_comment'=>($request->parent_comment != ''?$request->parent_comment:0),
+            'created_at'=>Carbon::now(),
+        ]);
+        // return response()->json([
+        //     'success'=>'success',
+        // ]);
+            return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function destroy(Request $request)
     {
-        //
+        Comments::where('id','=',$request->comment_id)->delete();
+        Comments::where('parent_comment','=', $request->comment_id)->delete();
+        return response()->json([
+            'success'=> 'success',
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function autoData(Request $request)
     {
-        //
-    }
+        $result = Comments::where('blog_id','=',$request->blog)
+                            ->where('parent_comment','=', 0)
+                            ->orderBY('created_at', 'DESC')->get();
+        $data = [];
+        foreach ($result as $value) {
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+            $sub_comment = Comments::where('parent_comment','=', $value->id)
+                            ->orderBY('created_at', 'DESC')->get();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            $sub_commentData = [];
+            foreach ($sub_comment as $item) {
+                $sub_commentData[] = [
+                    'id'=>$item->id,
+                    'name'=>$item->name,
+                    'comments'=>$item->comments,
+                    'created_at'=>$item->created_at->diffForHumans(),
+                ];
+            }
+
+            $data[] = [
+                'id'=>$value->id,
+                'name'=>$value->name,
+                'comments'=>$value->comments,
+                'sub_comment'=>$sub_commentData,
+                'created_at'=>$value->created_at->diffForHumans(),
+            ];
+        }
+
+
+        return response()->json([
+            'result'=> $data,
+        ]);
     }
 }
