@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('frontend.welcome');
-})->name('frontend.welcome');
+    return view('backend.welcome');
+})->name('backend.welcome');
 
 Auth::routes();
 

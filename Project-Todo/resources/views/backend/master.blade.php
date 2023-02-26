@@ -24,7 +24,7 @@ $currentRouteName = Route::currentRouteName();
 
 <body>
 
-    @if ($currentRouteName != 'frontend.welcome' && $currentRouteName != 'login' && $currentRouteName != 'register')
+    @if ($currentRouteName != 'backend.welcome' && $currentRouteName != 'login' && $currentRouteName != 'register')
     @include('backend.nav')
     @endif
 
