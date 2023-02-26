@@ -25,19 +25,6 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
-
-        $request->validate([
-            'name'=>'required',
-            'category'=>'required',
-            'description'=>'required',
-            'image' => 'file|max:2048',
-        ],[
-            'name.required' => 'Please enter a name',
-            'category.required' => 'Please select a category',
-            'description.required' => 'Type Description...',
-            'image.max' => 'Upload Less then 2MB',
-        ]);
-
         $newID = Blog::insertGetId([
             'name'=>$request->name,
             'slug'=>Str::slug($request->name),

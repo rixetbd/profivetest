@@ -26,10 +26,7 @@ class CommentController extends Controller
             'parent_comment'=>($request->parent_comment != ''?$request->parent_comment:0),
             'created_at'=>Carbon::now(),
         ]);
-        // return response()->json([
-        //     'success'=>'success',
-        // ]);
-            return back();
+        return back();
     }
 
     public function destroy(Request $request)
@@ -48,10 +45,8 @@ class CommentController extends Controller
                             ->orderBY('created_at', 'DESC')->get();
         $data = [];
         foreach ($result as $value) {
-
             $sub_comment = Comments::where('parent_comment','=', $value->id)
                             ->orderBY('created_at', 'DESC')->get();
-
             $sub_commentData = [];
             foreach ($sub_comment as $item) {
                 $sub_commentData[] = [
@@ -61,7 +56,6 @@ class CommentController extends Controller
                     'created_at'=>$item->created_at->diffForHumans(),
                 ];
             }
-
             $data[] = [
                 'id'=>$value->id,
                 'name'=>$value->name,
@@ -70,8 +64,6 @@ class CommentController extends Controller
                 'created_at'=>$value->created_at->diffForHumans(),
             ];
         }
-
-
         return response()->json([
             'result'=> $data,
         ]);

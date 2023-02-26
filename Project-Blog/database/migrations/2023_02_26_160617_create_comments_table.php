@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('blog_id');
             $table->string('name');
-            $table->string('comments');
+            $table->text('comments');
             $table->integer('parent_comment')->default(0);
             $table->timestamps();
         });

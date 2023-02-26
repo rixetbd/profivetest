@@ -12,7 +12,9 @@
 
     .comment_single p {
         margin-bottom: 0;
-        font-size: 14px;
+        font-size: 13px;
+        font-weight: 400;
+        color: #000000;
     }
 
     .comment_single h4 {
@@ -64,19 +66,19 @@
             </div>
             <div class="card shadow-soft p-4 my-3 border_radius_10">
                 <div class="card-body">
-                    <p class="card-text">{{Str::limit($blog->description, 150)}}</p>
+                    {!! $blog['description'] !!}
                 </div>
             </div>
         </div>
 
         <div class="col-sm-12 col-md-12 my-3">
-            <div class="card shadow-soft px-4 py-2 my-3 border_radius_10">
+            <div class="card">
                 {{-- <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" class="card-img-top" alt="..."> --}}
-                <div class="card-body">
+                <div class="card-body shadow-soft px-4 py-4 my-3 border_radius_10">
                     <h2 class="card-title">Comments</h2>
 
                     <div class="my-4">
-                        <form action="{{route('comment.store')}}" method="post" class="commentformSubmit">
+                        <form action="{{route('comment.store')}}" method="post" class="commentformSubmit custom-form">
                             @csrf
                             <input type="hidden" name="blog_id" value="{{$blog->id}}" required>
                             <input type="hidden" name="parent_comment">
@@ -97,40 +99,12 @@
                                 Cooment</button>
                         </form>
                     </div>
-
-                    <div id="commentData">
-
-                        {{-- <div class="d-flex shadow-soft p-4 my-3 border_radius_10 comment_single">
-                            <div>
-                                <img src="{{asset('assets/img/avatar.png')}}" alt="" width="40"
-                        style="margin-right:20px;">
-                    </div>
-                    <div>
-                        <h4>Person Name</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic a, est ipsa voluptate
-                            illum fugit expedita autem magnam vero voluptatem perspiciatis, at quae deserunt
-                            ratione maxime voluptatibus laborum minus aliquam.</p>
-                    </div>
                 </div>
 
-                <div class="d-flex shadow-soft p-4 my-3 border_radius_10 comment_single">
-                    <div>
-                        <img src="{{asset('assets/img/avatar.png')}}" alt="" width="40" style="margin-right:20px;">
-                    </div>
-                    <div>
-                        <h4>Person Name</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic a, est ipsa voluptate
-                            illum fugit expedita autem magnam vero voluptatem perspiciatis, at quae deserunt
-                            ratione maxime voluptatibus laborum minus aliquam.</p>
-                    </div>
-                </div> --}}
-
+                <div id="commentData"></div>
             </div>
-
         </div>
     </div>
-</div>
-</div>
 </div>
 @endsection
 
@@ -153,7 +127,7 @@
                     $.each(value['sub_comment'], function (i, sub_commentvalue) {
                         sub_commenthtml +=
                             `<div class="d-flex shadow-inset px-4 py-3 my-3 border_radius_10 comment_single animate__animated caommentid${sub_commentvalue.id}">` +
-                            `<div><img src="{{asset('assets/img/avatar.png')}}" alt="" width="40" style="margin-right:20px;"></div>` +
+                            `<div><img src="{{asset('assets/img/male.png')}}" alt="" width="40" style="margin-right:20px;"></div>` +
                             `<div class="col-11"><h4>` + sub_commentvalue.name +
                             `<span class="light_text"> - ${sub_commentvalue.created_at}</span>` +
                             `</h4>` +
@@ -172,7 +146,7 @@
                         `<div class="my-3"><span class="action_link reply" onclick="comment_reply('replyfield${value.id}')"><i class="fas fa-reply"></i> Reply</span>` +
                         `<span class="action_link trash" onclick="comment_delete('${value.id}', 'caommentid${value.id}')"><i class="fas fa-trash"></i> Delete</span></div>` +
                         `<div class="col-12 d-none replyfield replyfield${value.id}">` +
-                        `<form action="{{route('comment.store')}}" method="post" class="commentformSubmit">` +
+                        `<form action="{{route('comment.store')}}" method="post" class="commentformSubmit custom-form">` +
                         `<input type="hidden" name="_token" value="{{ csrf_token() }}">` +
                         `<input type="hidden" name="blog_id" value="{{$blog->id}}">` +
                         `<input type="hidden" name="parent_comment" value="${value.id}">` +
@@ -220,28 +194,4 @@
     }
 
 </script>
-
-{{--
-<script>
-    $(".commentformSubmit").on('submit', function (e) {
-        e.preventDefault();
-        // alert('Ho');
-        var form = this;
-        $.ajax({
-            url: `{{route('comment.store')}}`,
-            method: $(form).attr('method'),
-            data: new FormData(form),
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                autoCommentData();
-                $('.empty_value').val('');
-            },
-            error: function (request, status, error) {
-                notyf.error(request.responseJSON.message);
-            }
-        });
-    });
-</script> --}}
 @endsection
