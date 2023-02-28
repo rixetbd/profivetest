@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TaskAssign;
 use App\Models\Tasks;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -99,6 +101,31 @@ class TaskController extends Controller
         return response()->json([
             'success'=>'success',
         ]);
+    }
+
+    public function assign ($id)
+    {
+        $data = Tasks::where('id', $id)->first();
+        $user = User::all();
+
+        return view('backend.tasks.show',[
+            'data'=>$data,
+            'user'=>$user,
+        ]);
+    }
+
+    public function assigntousers(Request $request){
+
+
+        foreach ($request->users as $value) {
+            TaskAssign::insert([
+                'task_id'=> $request->tasks,
+                'user_id'=> $value,
+                'created_at'=>Carbon::now(),
+            ]);
+        }
+
+        return $request->all();
     }
 
 }

@@ -31,4 +31,5 @@ Route::middleware('auth')->controller(TaskController::class)->prefix('tasks')->g
     Route::post('/status', 'status')->name('tasks.status');
     Route::get('/destroy/{id}', 'destroy')->name('tasks.destroy');
     Route::get('/assign/{id}', 'assign')->name('tasks.assign');
+    Route::post('/assign/users', 'assigntousers')->name('tasks.assignto.users');
 });
