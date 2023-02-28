@@ -128,11 +128,15 @@ class ProductController extends Controller
                 ]);
             }
         }
-
-        notyf()
-        // ->duration(2000)
-        ->addSuccess('Data has been update successfully!');
+        notyf()->addSuccess('Data has been update successfully!');
         return redirect()->route('product.index');
+    }
+
+    public function show($id){
+        $data = Product::where('id','=',$id)->first();
+        return view('frontend.products.show',[
+            'data'=>$data,
+        ]);
     }
 
     public function destroy(Request $request)

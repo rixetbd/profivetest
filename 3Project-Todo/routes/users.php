@@ -22,12 +22,13 @@ Route::middleware('auth')->controller(UserController::class)->prefix('users')->g
 });
 
 
-Route::controller(TaskController::class)->prefix('tasks')->group(function(){
+Route::middleware('auth')->controller(TaskController::class)->prefix('tasks')->group(function(){
     Route::get('/', 'index')->name('tasks.index');
     Route::get('/create', 'create')->name('tasks.create');
     Route::post('/store', 'store')->name('tasks.store');
     Route::get('/edit/{id}', 'edit')->name('tasks.edit');
     Route::post('/update', 'update')->name('tasks.update');
-    Route::post('/destroy', 'destroy')->name('tasks.destroy');
-    Route::get('/autoData', 'autoData')->name('tasks.autoData');
+    Route::post('/status', 'status')->name('tasks.status');
+    Route::get('/destroy/{id}', 'destroy')->name('tasks.destroy');
+    Route::get('/assign/{id}', 'assign')->name('tasks.assign');
 });

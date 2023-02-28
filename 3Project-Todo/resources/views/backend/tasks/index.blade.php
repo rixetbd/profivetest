@@ -26,7 +26,6 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Image</th>
                             <th>Name</th>
                             <th>Start From</th>
                             <th>Due Date</th>
@@ -35,7 +34,27 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        @foreach ($data as $key=>$item)
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->start_from}}</td>
+                            <td>{{$item->due_date}}</td>
+                            <td>
+                                <select class="form-select form-select-sm" name="status" required id="status_action" data-id="{{$item->id}}">
+                                    <option value="">-- Select A Optioin</option>
+                                    <option value="1" {{($item->status == 1?'selected':'')}}>Todo</option>
+                                    <option value="2" {{($item->status == 2?'selected':'')}}>On Test</option>
+                                    <option value="3" {{($item->status == 3?'selected':'')}}>In Progress</option>
+                                    <option value="4" {{($item->status == 4?'selected':'')}}>Completed</option>
+                                </select>
+                            </td>
+                            <td>
+                                <a href="{{route('tasks.assign', $item->id)}}" class="btn btn-sm btn-primary">Assign</a>
+                                <a href="{{route('tasks.destroy', $item->id)}}" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -47,106 +66,26 @@
 
 
 @section('custom_js')
+
 <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 <script>
-    $('#dataTableget').DataTable({
-        ajax: {
-            url: `{{route('tasks.autoData')}}`,
-            dataSrc: ''
-        },
-        columns: [{
-                data: null,
-                className: "text-center",
-                render: function (data, type, full, meta) {
-                    return meta.row + 1;
-                }
-            },
-            {
-                "data": function (data, type) {
-                    return `<a href="{{asset('uploads/tasks')}}/` + data.image +
-                        `" data-lightbox="roadtrip"><img class="img-thumbnail" width="45" src="{{asset('uploads/tasks')}}/` +
-                        data.image + `" itemprop="thumbnail" alt="Img"></a>`;
-                }
-            },
-            {
-                data: 'name'
-            },
-            {
-                data: 'start_from'
-            },
-            {
-                data: 'due_date'
-            },
-            {
-                className: "text-center",
-                data: 'status'
-            },
-            {
-                "data": null, // (data, type, row)
-                className: "text-center",
-                render: function (data) {
-                    return `<button title="Asign To" class="border-0 btn-sm btn-success text-success me-2" onclick="data_view('` +
-                        data.id + `')"><i class="fas fa-play"></i></button>`+
-                        `<button class="border-0 btn-sm btn-info me-2" onclick="data_edit('` +
-                        data.id + `','` + data.name + `')"><i class="fa fa-edit"></i></button>` +
-                        `<button class="border-0 btn-sm btn-danger red_icon me-2" onclick="data_distroy('` +
-                        data.id + `')"><i class="fa fa-trash"></i></button>`;
-                },
-            },
-        ],
-        error: function (request, status, error) {
-            notyf.error('No data available in table');
-        }
-    });
+    $('#dataTableget').DataTable();
 
+    $('#status_action').on('change', function(){
+        let value = $('#status_action').val();
+        let task_id = $('#status_action').data("id");
 
-    function data_distroy(id) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                let formUrlData = `{{route('tasks.destroy')}}`;
-                $.ajax({
-                    type: "POST",
-                    url: `${formUrlData}`,
-                    data: {
-                        "id": id,
-                    },
-                    success: function (data) {
-                        $('#dataTableget').DataTable().ajax.reload();
-                        notyf.success("Data Delete Successfully!");
-                    },
-                    error: function (request, status, error) {
-                        notyf.error('Data Delete Unsuccessfully!');
-                    }
-                });
+        $.ajax({
+            url:`{{route('tasks.status')}}`,
+            method:'POST',
+            data:{
+                id: task_id,
+                status: value,
+            },
+            success:function(data){
+                alert(id);
             }
-        })
-    }
-
-    category.edit
-
-    function data_edit(id)
-    {
-        var url = '{{ route("tasks.edit", ":id") }}';
-        url = url.replace(':id', id);
-        // window.open(url, '_blank');
-        window.location.href = url;
-    }
-
-    function data_view(id)
-    {
-        notyf.error("Action Not Develop Yet.");
-        // var url = '{{ route("tasks.edit", ":id") }}';
-        // url = url.replace(':id', id);
-        // // window.open(url, '_blank');
-        // window.location.href = url;
-    }
+        });
+    });
 </script>
 @endsection

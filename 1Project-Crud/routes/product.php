@@ -16,6 +16,7 @@ Route::controller(ProductController::class)->prefix('product')->group(function()
     Route::get('/create', 'create')->name('product.create');
     Route::post('/store', 'store')->name('product.store');
     Route::get('/edit/{id}', 'edit')->name('product.edit');
+    Route::get('/show/{id}', 'show')->name('product.show');
     Route::post('/update', 'update')->name('product.update');
     Route::post('/destroy', 'destroy')->name('product.destroy');
     Route::get('/autoData', 'autoData')->name('product.autoData');

@@ -85,7 +85,9 @@
                 "data": null, // (data, type, row)
                 className: "text-center",
                 render: function (data) {
-                    return `<button class="border-0 btn-sm btn-info me-2" onclick="data_edit('` +
+                    return `<button class="border-0 btn-sm btn-success me-2" onclick="data_view('` +
+                        data.id + `','` + data.name + `')"><i class="fa fa-eye"></i></button>` +
+                        `<button class="border-0 btn-sm btn-info me-2" onclick="data_edit('` +
                         data.id + `','` + data.name + `')"><i class="fa fa-edit"></i></button>` +
                         `<button class="border-0 btn-sm btn-danger red_icon me-2" onclick="data_distroy('` +
                         data.id + `')"><i class="fa fa-trash"></i></button>`;
@@ -128,11 +130,18 @@
         })
     }
 
-    category.edit
 
     function data_edit(id)
     {
         var url = '{{ route("product.edit", ":id") }}';
+        url = url.replace(':id', id);
+        // window.open(url, '_blank');
+        window.location.href = url;
+    }
+
+    function data_view(id)
+    {
+        var url = '{{ route("product.show", ":id") }}';
         url = url.replace(':id', id);
         // window.open(url, '_blank');
         window.location.href = url;

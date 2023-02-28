@@ -1,6 +1,6 @@
 @extends('frontend.master')
 
-@section('page_title', 'Welcome')
+@section('page_title', 'Welcome - CRUD')
 
 @section('custom_css')
 <style>

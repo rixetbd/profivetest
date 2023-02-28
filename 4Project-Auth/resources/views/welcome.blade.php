@@ -352,11 +352,6 @@
 
         @media (prefers-color-scheme:dark) {
 
-            .dark\:bg-gray-900 {
-                --tw-bg-opacity: 1;
-                background-color: rgb(17 24 39 / var(--tw-bg-opacity))
-            }
-
             .dark\:border-gray-700 {
                 --tw-border-opacity: 1;
                 border-color: rgb(55 65 81 / var(--tw-border-opacity))
