@@ -20,16 +20,22 @@
     </div>
 
     <div class="shadow-soft px-3 py-4 border_radius_10">
-        {{$data}}
-
         <h4>{{$data->name}}</h4>
         <p>{{$data->description}}</p>
+
+        <ul style="list-style: none;margin-left:-2rem;">
+            <li>Status : {{$data->status}}</li>
+            <li>Start From : {{$data->start_from}}</li>
+            <li>Due Date : {{$data->due_date}}</li>
+        </ul>
 
         <div class="py-3">
             <form action="{{route('tasks.assignto.users')}}" method="post">
                 @csrf
                 <h3 class="py-3">Assgin To -</h3>
                 <input type="hidden" name="tasks" value="{{$data->id}}">
+
+
                 @foreach ($user as $item)
                 <div class="form-check py-2">
                     <input class="form-check-input" type="checkbox" name="users[]" value="{{$item->id}}" id="flexCheckDefault{{$item->id}}">
@@ -41,7 +47,6 @@
 
                 <button type="submit" class="btn btn-sm btn-success mt-4">Submit</button>
             </form>
-
             </div>
     </div>
 </div>
