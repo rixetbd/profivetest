@@ -107,7 +107,7 @@ class TaskController extends Controller
     {
         $data = Tasks::where('id', $id)->first();
         $user = User::all();
-
+        
         return view('backend.tasks.show',[
             'data'=>$data,
             'user'=>$user,
